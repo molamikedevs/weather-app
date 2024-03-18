@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
+import 'dotenv/config'
 
-const apiKey = '1e6d21df72f644aba4f5e7f77a7f32bd'
+const apiKey = process.env.API_KEY
 const apiUrl = 'https://api.openweathermap.org/data/2.5/weather?units=metric&q='
 
 export default function App() {
