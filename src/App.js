@@ -1,7 +1,5 @@
 import React, { useState } from 'react'
-import 'dotenv/config'
 
-const apiKey = process.env.API_KEY
 const apiUrl = 'https://api.openweathermap.org/data/2.5/weather?units=metric&q='
 
 export default function App() {
@@ -41,15 +39,21 @@ const Main = () => {
 	const [error, setError] = useState('')
 
 	const weatherData = async cityName => {
+		const apiUrlWithKey = `${apiUrl}${cityName}&appid=${process.env.REACT_APP_API_KEY}`
+		console.log('API URL:', apiUrlWithKey) // Log the constructed API URL
+
 		try {
-			const response = await fetch(apiUrl + cityName + `&appid=${apiKey}`)
+			const response = await fetch(apiUrlWithKey)
+
 			if (!response.ok) {
-				console.error('Invalid city or error in response:', response.status)
+				console.error('Invalid response:', response.status)
 				setError('Invalid city. Please enter a valid city name.')
 				setWeather(null)
 				return
 			}
+
 			const data = await response.json()
+			console.log('API Response:', data) // Log the API response
 			setWeather(data)
 			setError('')
 		} catch (error) {
