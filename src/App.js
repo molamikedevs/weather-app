@@ -40,7 +40,6 @@ const Main = () => {
 
 	const weatherData = async cityName => {
 		const apiUrlWithKey = `${apiUrl}${cityName}&appid=${process.env.REACT_APP_API_KEY}`
-		console.log('API URL:', apiUrlWithKey) // Log the constructed API URL
 
 		try {
 			const response = await fetch(apiUrlWithKey)
@@ -53,7 +52,7 @@ const Main = () => {
 			}
 
 			const data = await response.json()
-			console.log('API Response:', data) // Log the API response
+			console.log('API Response:', data)
 			setWeather(data)
 			setError('')
 		} catch (error) {
@@ -66,6 +65,7 @@ const Main = () => {
 	const handleSearch = e => {
 		if (e.key === 'Enter' || e.type === 'click') {
 			weatherData(city)
+			setCity('')
 		}
 	}
 
@@ -93,14 +93,14 @@ const Main = () => {
 						<h2>{weather.name}</h2>
 						<div className="weather">
 							<div className="col">
-								<h3>{`Temperature ${weather.main.temp} 60°C`}</h3>
+								<h3>{`Temperature ${weather.main.temp}°C`}</h3>
 								<img
 									src={`images/${getWeatherIcon(weather.weather[0].icon)}`}
 									alt="weather"
 								/>
 							</div>
 							<div className="col">
-								<h3>{`Humidity ${weather.main.humidity} 78%`}</h3>
+								<h3>{`Humidity ${weather.main.humidity}%`}</h3>
 								<img src="images/humidity.png" alt="humidity" />
 							</div>
 							<div className="col">
